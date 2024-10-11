@@ -8,10 +8,13 @@ servers:
     description: Production server
 
 paths:
-  /items:
+  /item:
     get:
-      summary: Get all items
+      summary: List all items
       description: Retrieve a list of all items in the warehouse.
+      tags:
+        - itemApi
+      operationId: listItem
       responses:
         '200':
           description: A list of items
@@ -24,6 +27,9 @@ paths:
     post:
       summary: Create a new item
       description: Add a new item to the warehouse inventory.
+      tags:
+        - itemApi
+      operationId: createItem
       requestBody:
         required: true
         content:
@@ -38,10 +44,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
 
-  /items/{itemId}:
+  /item/{itemId}:
     get:
-      summary: Get item by ID
+      summary: Retrieve item by ID
       description: Retrieve a specific item by its ID.
+      tags:
+        - itemApi
+      operationId: retrieveItem
       parameters:
         - name: itemId
           in: path
@@ -59,8 +68,11 @@ paths:
           description: Item not found
 
     put:
-      summary: Update an item by ID
-      description: Modify the details of a specific item.
+      summary: Update item by ID
+      description: Modify the details of a specific item entirely.
+      tags:
+        - itemApi
+      operationId: updateItem
       parameters:
         - name: itemId
           in: path
@@ -72,7 +84,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ItemCreate'
+              $ref: '#/components/schemas/ItemUpdate'
       responses:
         '200':
           description: Item updated successfully
@@ -84,8 +96,11 @@ paths:
           description: Item not found
 
     delete:
-      summary: Delete an item by ID
+      summary: Delete item by ID
       description: Remove a specific item from the warehouse inventory.
+      tags:
+        - itemApi
+      operationId: deleteItem
       parameters:
         - name: itemId
           in: path
@@ -98,10 +113,13 @@ paths:
         '404':
           description: Item not found
 
-  /orders:
+  /order:
     get:
-      summary: Get all orders
+      summary: List all orders
       description: Retrieve a list of all orders.
+      tags:
+        - orderApi
+      operationId: listOrder
       responses:
         '200':
           description: A list of orders
@@ -115,6 +133,9 @@ paths:
     post:
       summary: Create a new order
       description: Add a new order to the system.
+      tags:
+        - orderApi
+      operationId: createOrder
       requestBody:
         required: true
         content:
@@ -129,10 +150,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
 
-  /orders/{orderId}:
+  /order/{orderId}:
     get:
-      summary: Get order by ID
+      summary: Retrieve order by ID
       description: Retrieve details of a specific order.
+      tags:
+        - orderApi
+      operationId: retrieveOrder
       parameters:
         - name: orderId
           in: path
@@ -150,8 +174,11 @@ paths:
           description: Order not found
 
     put:
-      summary: Update an order by ID
-      description: Modify the details of a specific order.
+      summary: Update order by ID
+      description: Modify the details of a specific order entirely.
+      tags:
+        - orderApi
+      operationId: updateOrder
       parameters:
         - name: orderId
           in: path
@@ -163,7 +190,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderCreate'
+              $ref: '#/components/schemas/OrderUpdate'
       responses:
         '200':
           description: Order updated successfully
@@ -175,8 +202,11 @@ paths:
           description: Order not found
 
     delete:
-      summary: Delete an order by ID
+      summary: Delete order by ID
       description: Remove a specific order.
+      tags:
+        - orderApi
+      operationId: deleteOrder
       parameters:
         - name: orderId
           in: path
@@ -189,10 +219,13 @@ paths:
         '404':
           description: Order not found
 
-  /locations:
+  /location:
     get:
-      summary: Get all locations
+      summary: List all locations
       description: Retrieve a list of all storage locations in the warehouse.
+      tags:
+        - locationApi
+      operationId: listLocation
       responses:
         '200':
           description: A list of locations
@@ -206,6 +239,9 @@ paths:
     post:
       summary: Create a new location
       description: Add a new storage location.
+      tags:
+        - locationApi
+      operationId: createLocation
       requestBody:
         required: true
         content:
@@ -220,10 +256,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Location'
 
-  /locations/{locationId}:
+  /location/{locationId}:
     get:
-      summary: Get location by ID
+      summary: Retrieve location by ID
       description: Retrieve details of a specific storage location.
+      tags:
+        - locationApi
+      operationId: retrieveLocation
       parameters:
         - name: locationId
           in: path
@@ -241,8 +280,11 @@ paths:
           description: Location not found
 
     put:
-      summary: Update a location by ID
-      description: Modify the details of a specific storage location.
+      summary: Update location by ID
+      description: Modify the details of a specific location entirely.
+      tags:
+        - locationApi
+      operationId: updateLocation
       parameters:
         - name: locationId
           in: path
@@ -254,7 +296,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LocationCreate'
+              $ref: '#/components/schemas/LocationUpdate'
       responses:
         '200':
           description: Location updated successfully
@@ -266,8 +308,11 @@ paths:
           description: Location not found
 
     delete:
-      summary: Delete a location by ID
+      summary: Delete location by ID
       description: Remove a specific storage location.
+      tags:
+        - locationApi
+      operationId: deleteLocation
       parameters:
         - name: locationId
           in: path
@@ -280,10 +325,13 @@ paths:
         '404':
           description: Location not found
 
-  /customers:
+  /customer:
     get:
-      summary: Get all customers
+      summary: List all customers
       description: Retrieve a list of all customers.
+      tags:
+        - customerApi
+      operationId: listCustomer
       responses:
         '200':
           description: A list of customers
@@ -296,7 +344,10 @@ paths:
 
     post:
       summary: Create a new customer
-      description: Add a new customer.
+      description: Add a new customer to the system.
+      tags:
+        - customerApi
+      operationId: createCustomer
       requestBody:
         required: true
         content:
@@ -311,10 +362,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Customer'
 
-  /customers/{customerId}:
+  /customer/{customerId}:
     get:
-      summary: Get customer by ID
+      summary: Retrieve customer by ID
       description: Retrieve details of a specific customer.
+      tags:
+        - customerApi
+      operationId: retrieveCustomer
       parameters:
         - name: customerId
           in: path
@@ -332,8 +386,11 @@ paths:
           description: Customer not found
 
     put:
-      summary: Update a customer by ID
-      description: Modify the details of a specific customer.
+      summary: Update customer by ID
+      description: Modify the details of a specific customer entirely.
+      tags:
+        - customerApi
+      operationId: updateCustomer
       parameters:
         - name: customerId
           in: path
@@ -345,7 +402,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerCreate'
+              $ref: '#/components/schemas/CustomerUpdate'
       responses:
         '200':
           description: Customer updated successfully
@@ -357,8 +414,11 @@ paths:
           description: Customer not found
 
     delete:
-      summary: Delete a customer by ID
+      summary: Delete customer by ID
       description: Remove a specific customer.
+      tags:
+        - customerApi
+      operationId: deleteCustomer
       parameters:
         - name: customerId
           in: path
@@ -376,7 +436,7 @@ components:
     Item:
       type: object
       properties:
-        itemId:
+        id:
           type: string
           description: Unique identifier for the item.
         name:
@@ -385,12 +445,23 @@ components:
         quantity:
           type: integer
           description: Number of items available.
+        description:
+          type: string
+        unitOfMeasure:
+          type: string
         locationId:
           type: string
           description: ID of the storage location.
         price:
           type: number
           description: Price of the item.
+      required:
+        - id
+        - name
+        - quantity
+        - unitOfMeasure
+        - locationId
+        - price
 
     ItemCreate:
       type: object
@@ -407,11 +478,39 @@ components:
         price:
           type: number
           description: Price of the item.
+      required:
+        - name
+        - quantity
+        - unitOfMeasure
+        - locationId
+        - price
+
+    ItemUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the item.
+        quantity:
+          type: integer
+          description: Number of items available.
+        locationId:
+          type: string
+          description: ID of the storage location.
+        price:
+          type: number
+          description: Price of the item.
+      required:
+        - name
+        - quantity
+        - unitOfMeasure
+        - locationId
+        - price
 
     Order:
       type: object
       properties:
-        orderId:
+        id:
           type: string
           description: Unique identifier for the order.
         customerId:
@@ -425,7 +524,7 @@ components:
         totalPrice:
           type: number
           description: Total price of the order.
-        orderDate:
+        createdAt:
           type: string
           format: date-time
           description: Date when the order was placed.
@@ -442,18 +541,42 @@ components:
           items:
             type: object
             properties:
-              itemId:
-                type: string
+              item:
+                $ref: '#/components/schemas/Item'
               quantity:
                 type: integer
-        totalPrice:
-          type: number
-          description: Total price of the order.
+            required:
+              - item
+              - quantity
+      required:
+        - items
+
+    OrderUpdate:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: ID of the customer who placed the order.
+        items:
+          type: array
+          description: List of ordered items.
+          items:
+            type: object
+            properties:
+              item:
+                $ref: '#/components/schemas/Item'
+              quantity:
+                type: integer
+            required:
+              - item
+              - quantity
+      required:
+        - items
 
     Location:
       type: object
       properties:
-        locationId:
+        id:
           type: string
           description: Unique identifier for the location.
         name:
@@ -476,31 +599,100 @@ components:
           type: integer
           description: Maximum capacity of the location.
 
+    LocationUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the storage location.
+        capacity:
+          type: integer
+          description: Maximum capacity of the location.
+
     Customer:
       type: object
       properties:
-        customerId:
+        id:
           type: string
           description: Unique identifier for the customer.
-        name:
+        firstName:
           type: string
           description: Name of the customer.
+        lastName:
+          type: string
+        passportNo:
+          type: string
+        phoneNo:
+          type: string
         email:
           type: string
           description: Email address of the customer.
         address:
           type: string
           description: Address of the customer.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - address
 
     CustomerCreate:
       type: object
       properties:
-        name:
+        firstName:
           type: string
           description: Name of the customer.
+        lastName:
+          type: string
+        passportNo:
+          type: string
+        phoneNo:
+          type: string
         email:
           type: string
           description: Email address of the customer.
         address:
           type: string
           description: Address of the customer.
+      required:
+        - firstName
+        - lastName
+        - email
+        - address
+
+    CustomerUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Name of the customer.
+        lastName:
+          type: string
+        passportNo:
+          type: string
+        phoneNo:
+          type: string
+        email:
+          type: string
+          description: Email address of the customer.
+        address:
+          type: string
+          description: Address of the customer.
+      required:
+        - firstName
+        - lastName
+        - email
+        - address
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        reason:
+          type: string
+        code:
+          type: string
+      required:
+        - message

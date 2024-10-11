@@ -1,4 +1,4 @@
-package net.warehouse.management.domain.item;
+package net.warehouse.management.domain.customer;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -9,11 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "items")
-public class ItemEntity {
+@Document(collection = "customers")
+public class CustomerEntity {
     @Id
     private String id;
-    private String name;
-    private Integer quantity;
-    private double price;
 }
