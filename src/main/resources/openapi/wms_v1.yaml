@@ -1,0 +1,506 @@
+openapi: 3.0.3
+info:
+  title: Warehouse Management System API
+  description: API for managing items, orders, locations, and customers in a warehouse.
+  version: 1.0.0
+servers:
+  - url: https://api.warehouse.com/v1
+    description: Production server
+
+paths:
+  /items:
+    get:
+      summary: Get all items
+      description: Retrieve a list of all items in the warehouse.
+      responses:
+        '200':
+          description: A list of items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+    post:
+      summary: Create a new item
+      description: Add a new item to the warehouse inventory.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '201':
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+
+  /items/{itemId}:
+    get:
+      summary: Get item by ID
+      description: Retrieve a specific item by its ID.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item not found
+
+    put:
+      summary: Update an item by ID
+      description: Modify the details of a specific item.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '200':
+          description: Item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Item not found
+
+    delete:
+      summary: Delete an item by ID
+      description: Remove a specific item from the warehouse inventory.
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Item deleted successfully
+        '404':
+          description: Item not found
+
+  /orders:
+    get:
+      summary: Get all orders
+      description: Retrieve a list of all orders.
+      responses:
+        '200':
+          description: A list of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+
+    post:
+      summary: Create a new order
+      description: Add a new order to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+  /orders/{orderId}:
+    get:
+      summary: Get order by ID
+      description: Retrieve details of a specific order.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+
+    put:
+      summary: Update an order by ID
+      description: Modify the details of a specific order.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+
+    delete:
+      summary: Delete an order by ID
+      description: Remove a specific order.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Order deleted successfully
+        '404':
+          description: Order not found
+
+  /locations:
+    get:
+      summary: Get all locations
+      description: Retrieve a list of all storage locations in the warehouse.
+      responses:
+        '200':
+          description: A list of locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+
+    post:
+      summary: Create a new location
+      description: Add a new storage location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationCreate'
+      responses:
+        '201':
+          description: Location created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+
+  /locations/{locationId}:
+    get:
+      summary: Get location by ID
+      description: Retrieve details of a specific storage location.
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          description: Location not found
+
+    put:
+      summary: Update a location by ID
+      description: Modify the details of a specific storage location.
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationCreate'
+      responses:
+        '200':
+          description: Location updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '404':
+          description: Location not found
+
+    delete:
+      summary: Delete a location by ID
+      description: Remove a specific storage location.
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Location deleted successfully
+        '404':
+          description: Location not found
+
+  /customers:
+    get:
+      summary: Get all customers
+      description: Retrieve a list of all customers.
+      responses:
+        '200':
+          description: A list of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+
+    post:
+      summary: Create a new customer
+      description: Add a new customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+
+  /customers/{customerId}:
+    get:
+      summary: Get customer by ID
+      description: Retrieve details of a specific customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A single customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+
+    put:
+      summary: Update a customer by ID
+      description: Modify the details of a specific customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+
+    delete:
+      summary: Delete a customer by ID
+      description: Remove a specific customer.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Customer deleted successfully
+        '404':
+          description: Customer not found
+
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        itemId:
+          type: string
+          description: Unique identifier for the item.
+        name:
+          type: string
+          description: Name of the item.
+        quantity:
+          type: integer
+          description: Number of items available.
+        locationId:
+          type: string
+          description: ID of the storage location.
+        price:
+          type: number
+          description: Price of the item.
+
+    ItemCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the item.
+        quantity:
+          type: integer
+          description: Number of items available.
+        locationId:
+          type: string
+          description: ID of the storage location.
+        price:
+          type: number
+          description: Price of the item.
+
+    Order:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique identifier for the order.
+        customerId:
+          type: string
+          description: ID of the customer who placed the order.
+        items:
+          type: array
+          description: List of ordered items.
+          items:
+            $ref: '#/components/schemas/Item'
+        totalPrice:
+          type: number
+          description: Total price of the order.
+        orderDate:
+          type: string
+          format: date-time
+          description: Date when the order was placed.
+
+    OrderCreate:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: ID of the customer who placed the order.
+        items:
+          type: array
+          description: List of ordered items.
+          items:
+            type: object
+            properties:
+              itemId:
+                type: string
+              quantity:
+                type: integer
+        totalPrice:
+          type: number
+          description: Total price of the order.
+
+    Location:
+      type: object
+      properties:
+        locationId:
+          type: string
+          description: Unique identifier for the location.
+        name:
+          type: string
+          description: Name of the storage location.
+        capacity:
+          type: integer
+          description: Maximum capacity of the location.
+        currentCapacity:
+          type: integer
+          description: Current capacity of the location.
+
+    LocationCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the storage location.
+        capacity:
+          type: integer
+          description: Maximum capacity of the location.
+
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Unique identifier for the customer.
+        name:
+          type: string
+          description: Name of the customer.
+        email:
+          type: string
+          description: Email address of the customer.
+        address:
+          type: string
+          description: Address of the customer.
+
+    CustomerCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the customer.
+        email:
+          type: string
+          description: Email address of the customer.
+        address:
+          type: string
+          description: Address of the customer.
